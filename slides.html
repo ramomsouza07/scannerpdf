@@ -1,160 +1,218 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <title>Scanner de PDF - Projeto em C</title>
-    <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css" />
-    <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" />
-    <style>
-      section { padding: 20px; }
-      h1, h2, h3 { color: #33ff33; }
-      p, li { font-size: 1.4rem; color: #ccc; }
-    </style>
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides">
+<head>
+  <meta charset="utf-8">
+  <title>Projeto - Scanner de PDF em C</title>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css">
+  <style>
+    section { padding: 20px; }
+    h1, h2, h3 { color: #00ff99; }
+    p, li { font-size: 1.4rem; color: #eee; }
+    code { background: #333; color: #0f0; padding: 2px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
 
-        <!-- Slide 1 -->
-        <section>
-          <h1>Scanner de PDF</h1>
-          <h3>Projeto de Leitura e Busca por Palavra-chave</h3>
-          <p>Desenvolvido em linguagem C</p>
-          <p>Equipe: Ramom Souza, Eduardo Molica, Antonio Ferreira, Yuri Bom</p>
-        </section>
+      <!-- Slide 1 -->
+      <section>
+        <h1>Projeto: Scanner de PDF</h1>
+        <p>Leitura de arquivos .txt e associação com .pdf</p>
+        <p>Equipe: Ramom Souza, Eduardo Molica, Antonio Ferreira</p>
+      </section>
 
-        <!-- Slide 2 -->
-        <section>
-          <h2>Objetivo do Projeto</h2>
-          <ul>
-            <li>Receber o caminho de uma pasta com arquivos .txt e .pdf</li>
-            <li>Perguntar ao usuário uma palavra-chave</li>
-            <li>Contar quantas vezes a palavra aparece em cada arquivo .txt</li>
-            <li>Exibir os PDFs relacionados, ordenados por quantidade de ocorrências</li>
-          </ul>
-        </section>
+      <!-- Slide 2 -->
+      <section>
+        <h2>📌 Objetivo Geral</h2>
+        <ul>
+          <li>Receber o caminho de uma pasta com arquivos</li>
+          <li>Buscar por uma palavra-chave nos arquivos .txt</li>
+          <li>Exibir os PDFs correspondentes ordenados por quantidade de ocorrências</li>
+        </ul>
+      </section>
 
-        <!-- Slide 3 -->
-        <section>
-          <h2>Bibliotecas Utilizadas</h2>
-          <ul>
-            <li>&lt;stdio.h&gt;</li>
-            <li>&lt;stdlib.h&gt;</li>
-            <li>&lt;string.h&gt;</li>
-            <li>&lt;unistd.h&gt;</li>
-          </ul>
-        </section>
+      <!-- Slide 3 -->
+      <section>
+        <h2>🔧 Bibliotecas utilizadas</h2>
+        <ul>
+          <li><code>stdio.h</code> → Entrada e saída de dados</li>
+          <li><code>stdlib.h</code> → Funções como <code>system()</code></li>
+          <li><code>string.h</code> → Manipulação de strings</li>
+          <li><code>unistd.h</code> → Função <code>sleep()</code> (pausa)</li>
+        </ul>
+      </section>
 
-        <!-- Slide 4 -->
-        <section>
-          <h2>Estrutura de Variáveis</h2>
-          <ul>
-            <li><strong>path</strong>: manipula path.txt</li>
-            <li><strong>file, file2, file3</strong>: leitura de arquivos txt e pdf</li>
-            <li><strong>caminho[100]</strong>: caminho da pasta</li>
-            <li><strong>comando[100]</strong>: comandos a serem executados no CMD</li>
-            <li><strong>palavra[100]</strong>: palavra-chave da busca</li>
-          </ul>
-        </section>
+      <!-- Slide 4 -->
+      <section>
+        <h2>🏗️ Estrutura Geral</h2>
+        <ul>
+          <li>Ponteiros de arquivo: <code>FILE *path, *file, *file2, *file3</code></li>
+          <li>Arrays: <code>caminho[100]</code>, <code>comando[100]</code>, <code>palavra[100]</code></li>
+          <li>Vetores de resultados: <code>nomesArquivos[100][100]</code>, <code>ocorrencias[100]</code></li>
+        </ul>
+      </section>
 
-        <!-- Slide 5 -->
-        <section>
-          <h2>Listagem de Arquivos</h2>
-          <ul>
-            <li>Gera dois comandos:</li>
-            <li>Listar todos os arquivos .txt → <code>dir /s /b "*.txt" &gt; listaTXT.txt</code></li>
-            <li>Listar todos os arquivos .pdf → <code>dir /b "*.pdf" &gt; listaPDF.txt</code></li>
-            <li>Executa os comandos com <code>system()</code></li>
-          </ul>
-        </section>
+      <!-- Slide 5 -->
+      <section>
+        <h2>📂 Obtenção do Caminho</h2>
+        <ul>
+          <li>Usuário digita o caminho da pasta</li>
+          <li>Remove o <code>\n</code> final da string</li>
+          <li>Gera o comando <code>dir</code> para listar arquivos .txt</li>
+          <li>Salva o comando no arquivo <code>path.txt</code></li>
+        </ul>
+      </section>
 
-        <!-- Slide 6 -->
-        <section>
-          <h2>Remoção de Arquivo Temporário</h2>
-          <p>O arquivo <strong>path.txt</strong> é apenas temporário.</p>
-          <p>Depois de usado, o programa o exclui com:</p>
-          <pre><code>system("del /f path.txt");</code></pre>
-        </section>
+      <!-- Slide 6 -->
+      <section>
+        <h2>📄 Execução dos Comandos</h2>
+        <ul>
+          <li>Lê o comando de <code>path.txt</code></li>
+          <li>Executa com <code>system()</code></li>
+          <li>Resultado: Criação de <code>listaTXT.txt</code></li>
+          <li>Repete o processo para os arquivos .pdf</li>
+        </ul>
+      </section>
 
-        <!-- Slide 7 -->
-        <section>
-          <h2>Contagem de Arquivos</h2>
-          <p>Conta quantas linhas tem no <strong>listaTXT.txt</strong>.</p>
-          <p>Isso indica quantos arquivos .txt precisam ser processados.</p>
-        </section>
+      <!-- Slide 7 -->
+      <section>
+        <h2>🗑️ Limpeza de Arquivos Temporários</h2>
+        <p>O arquivo <code>path.txt</code> é deletado após uso para evitar acúmulo de arquivos temporários.</p>
+      </section>
 
-        <!-- Slide 8 -->
-        <section>
-          <h2>Recebendo a Palavra-chave</h2>
-          <ul>
-            <li>Usuário digita a palavra</li>
-            <li>Loop de validação para evitar busca com string vazia</li>
-            <li>Remove o <code>\n</code> final de <code>fgets</code></li>
-          </ul>
-        </section>
+      <!-- Slide 8 -->
+      <section>
+        <h2>📏 Contagem de Arquivos TXT</h2>
+        <ul>
+          <li>Lê linha por linha o <code>listaTXT.txt</code></li>
+          <li>Conta quantos arquivos .txt foram encontrados</li>
+          <li>Armazena o número em <code>linhas</code></li>
+        </ul>
+      </section>
 
-        <!-- Slide 9 -->
-        <section>
-          <h2>Busca por Palavra-chave</h2>
-          <ul>
-            <li>Abre cada arquivo .txt</li>
-            <li>Lê linha por linha, caractere por caractere</li>
-            <li>Conta as ocorrências da palavra-chave</li>
-            <li>Armazena o resultado no vetor <strong>ocorrencias[]</strong></li>
-          </ul>
-        </section>
+      <!-- Slide 9 -->
+      <section>
+        <h2>🔎 Entrada da Palavra-chave</h2>
+        <ul>
+          <li>Usuário insere a palavra-chave</li>
+          <li>Validação: impede busca com string vazia</li>
+          <li>Remove <code>\n</code> do <code>fgets()</code></li>
+        </ul>
+      </section>
 
-        <!-- Slide 10 -->
-        <section>
-          <h2>Vetor de Resultados</h2>
-          <p>Criação de dois vetores paralelos:</p>
-          <ul>
-            <li><strong>nomesArquivos[100][100]</strong>: nomes dos arquivos PDF</li>
-            <li><strong>ocorrencias[100]</strong>: quantidade de ocorrências da palavra</li>
-          </ul>
-        </section>
+      <!-- Slide 10 -->
+      <section>
+        <h2>🔍 Lógica de Busca nos Arquivos</h2>
+        <ul>
+          <li>Abre cada .txt da lista</li>
+          <li>Lê linha por linha</li>
+          <li>Busca a palavra caractere por caractere</li>
+          <li>Conta o número de ocorrências por arquivo</li>
+          <li>Associa cada resultado ao PDF correspondente</li>
+        </ul>
+      </section>
 
-        <!-- Slide 11 -->
-        <section>
-          <h2>Ordenação dos Resultados</h2>
-          <p>Implementação de um <strong>Selection Sort</strong>:</p>
-          <ul>
-            <li>Compara todos os elementos com os seguintes</li>
-            <li>Troca de posições para colocar em ordem crescente</li>
-          </ul>
-        </section>
+      <!-- Slide 11 -->
+      <section>
+        <h2>🔢 Algoritmo de Busca</h2>
+        <ul>
+          <li>Implementação de uma busca simples de substring</li>
+          <li>Compara a palavra com cada trecho da linha</li>
+          <li>Incrementa um contador sempre que encontra</li>
+          <li>Complexidade: O(n*m) para cada arquivo</li>
+        </ul>
+      </section>
 
-        <!-- Slide 12 -->
-        <section>
-          <h2>Animação de Espera</h2>
-          <p>Durante o processamento:</p>
-          <pre><code>sleep(1);</code></pre>
-          <p>Simula progresso para o usuário com pontos: <code>.</code></p>
-        </section>
+      <!-- Slide 12 -->
+      <section>
+        <h2>🗃️ Organização dos Resultados</h2>
+        <p>Dois vetores principais:</p>
+        <ul>
+          <li><code>nomesArquivos[][]</code> → Nome dos PDFs</li>
+          <li><code>ocorrencias[]</code> → Número de vezes que a palavra apareceu</li>
+        </ul>
+      </section>
 
-        <!-- Slide 13 -->
-        <section>
-          <h2>Exibição Final</h2>
-          <ul>
-            <li>Mostra nome de cada PDF e o número de ocorrências</li>
-            <li>Informa o total de arquivos onde a palavra foi encontrada</li>
-          </ul>
-        </section>
+      <!-- Slide 13 -->
+      <section>
+        <h2>🔄 Ordenação (Selection Sort)</h2>
+        <ul>
+          <li>Compara cada posição com todas as seguintes</li>
+          <li>Ordena os resultados por número de ocorrências (crescente)</li>
+          <li>Complexidade: O(n²)</li>
+        </ul>
+      </section>
 
-        <!-- Slide 14 -->
-        <section>
-          <h2>Conclusão</h2>
-          <p>O programa permite uma busca rápida por palavras-chave dentro de lotes de arquivos .txt, mostrando os PDFs relacionados.</p>
-          <p>Exemplo prático: Filtrar documentos por tema específico.</p>
-          <p><strong>Obrigado!</strong></p>
-        </section>
+      <!-- Slide 14 -->
+      <section>
+        <h2>⏳ Animação de Espera</h2>
+        <p>Usa <code>sleep(1)</code> para criar efeito de carregamento:</p>
+        <pre><code>
+printf("Analisando arquivos");
+sleep(1);
+printf(".");
+sleep(1);
+printf(".");
+sleep(1);
+printf(".");
+        </code></pre>
+      </section>
 
-      </div>
+      <!-- Slide 15 -->
+      <section>
+        <h2>📈 Exibição dos Resultados</h2>
+        <ul>
+          <li>Mostra cada arquivo PDF e o número de ocorrências</li>
+          <li>Apresenta um resumo: Quantos arquivos tiveram ao menos uma ocorrência</li>
+        </ul>
+      </section>
+
+      <!-- Slide 16 -->
+      <section>
+        <h2>🧹 Limpeza Final</h2>
+        <p>Deleta os arquivos temporários <code>listaTXT.txt</code> e <code>listaPDF.txt</code>:</p>
+        <pre><code>
+system("del /f listaTXT.txt");
+system("del /f listaPDF.txt");
+        </code></pre>
+      </section>
+
+      <!-- Slide 17 -->
+      <section>
+        <h2>⚠️ Pontos Importantes</h2>
+        <ul>
+          <li>Funciona apenas no Windows (uso de <code>dir</code> e <code>del</code>)</li>
+          <li>Assume que a ordem dos .txt corresponde à dos .pdf</li>
+          <li>Limitação de tamanho de arrays (máximo 100 arquivos)</li>
+          <li>Busca é <strong>case-sensitive</strong> (diferencia maiúsculas de minúsculas)</li>
+        </ul>
+      </section>
+
+      <!-- Slide 18 -->
+      <section>
+        <h2>🛠️ Possíveis Melhorias</h2>
+        <ul>
+          <li>Buscar sem diferenciar maiúsculas/minúsculas</li>
+          <li>Usar estruturas de dados dinâmicas</li>
+          <li>Permitir número ilimitado de arquivos</li>
+          <li>Portabilidade para Linux/Mac</li>
+          <li>Melhor tratamento de erros</li>
+        </ul>
+      </section>
+
+      <!-- Slide 19 -->
+      <section>
+        <h1>✅ Conclusão</h1>
+        <p>Nosso scanner de PDF em C cumpre seu objetivo de forma simples e eficiente.</p>
+        <p>Trabalhamos com leitura de arquivos, manipulação de strings, execução de comandos externos e ordenação.</p>
+        <h3>Obrigado!</h3>
+      </section>
+
     </div>
-    <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
-    <script>
-      Reveal.initialize();
-    </script>
-  </body>
+  </div>
+  <script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+  <script>Reveal.initialize();</script>
+</body>
 </html>
-
