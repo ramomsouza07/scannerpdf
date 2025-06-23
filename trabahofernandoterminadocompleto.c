@@ -46,7 +46,7 @@ int main() {
         palavra[strlen(palavra) - 1] = 0;
 
         if (strlen(palavra) == 0) {
-            printf("\nNão há palavra chave. Escreva novamente.\n");
+            printf("\nNÃ£o hÃ¡ palavra chave. Escreva novamente.\n");
         } else {
             valido = 1;
         }
@@ -56,7 +56,7 @@ int main() {
     file2 = fopen("listaTXT.txt", "r");
 
     char nomesArquivos[100][100];   // nomes dos arquivos
-    int ocorrencias[100];           // ocorrências por arquivo
+    int ocorrencias[100];           // ocorrÃªncias por arquivo
     int totalResultados = 0;
     int naoAberto = linhas;
 
@@ -152,7 +152,7 @@ int main() {
 		sleep(1);
 		printf(".\n");
 		
-	    // Impressão final ordenada
+	    // ImpressÃ£o final ordenada
 	    printf("\nResultados da busca (ordem crescente de ocorrencias):\n");
 	    for (int i = 0; i < totalResultados; i++) {
 	    	sleep(1);
