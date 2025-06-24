@@ -16,4 +16,4 @@ O programa faz o seguinte:
 
 ## 🎤 Apresentação (HTML Slide)
 
-[👉 Slides de Apresentação](slides.html)
+[👉 Slides de Apresentação](https://ramomsouza07.github.io/scannerpdf/slides.html)
