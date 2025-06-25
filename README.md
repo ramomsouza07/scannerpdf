@@ -1,5 +1,7 @@
 # PDF Scanner - Buscador de Palavras-Chave em Arquivos PDF
 
+![imagem](LEitor de pdf.png)
+
 Este é um projeto simples de scanner de PDF desenvolvido em C, com foco na busca por palavras-chave dentro de arquivos de texto relacionados a arquivos PDF.
 
 ## 📌 O que o programa faz?
