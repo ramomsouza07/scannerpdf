@@ -2,90 +2,127 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scanner PDF</title>
+
+  <!-- Fonte Orbitron (tech) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+
   <style>
-    body {
+    :root {
+      --gunmetal: #1a3038;
+      --dark-purple: #31263e;
+      --oxford-blue: #001d3d;
+      --ash-gray: #cfd7c7;
+      --raisin-black: #221e22;
+      --accent: #00fff7;
+    }
+
+    * {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: #e0e0e0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: var(--gunmetal);
+      color: var(--ash-gray);
+      line-height: 1.6;
     }
 
     header {
-      background-color: #111;
-      padding: 20px;
+      background-color: var(--oxford-blue);
+      padding: 40px 20px;
       text-align: center;
-      box-shadow: 0 2px 10px #00fff7;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
     header h1 {
-      color: #00fff7;
-      margin: 0;
-      font-size: 2.5rem;
+      font-size: 3rem;
+      color: var(--ash-gray);
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    .typing {
+      font-size: 1.2rem;
+      color: var(--ash-gray);
+      margin-top: 10px;
     }
 
     .container {
       max-width: 900px;
       margin: 40px auto;
-      padding: 20px;
-      background: #1e1e1e;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00fff7;
+      background-color: var(--raisin-black);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px var(--dark-purple);
     }
 
     img {
       max-width: 100%;
       border-radius: 8px;
-      margin: 20px 0;
+      margin-bottom: 20px;
+      box-shadow: 0 0 12px var(--accent);
     }
 
     h2 {
-      color: #00fff7;
-      border-bottom: 2px solid #00fff7;
+      color: var(--accent);
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
       padding-bottom: 5px;
     }
 
     ol {
       padding-left: 20px;
+      margin-bottom: 20px;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #111;
-      color: #777;
-      margin-top: 50px;
+    li {
+      margin-bottom: 10px;
     }
 
     a {
-      color: #00fff7;
+      color: var(--accent);
       text-decoration: none;
     }
 
     a:hover {
       text-decoration: underline;
     }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #aaa;
+      background-color: var(--dark-purple);
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>🔍 Scanner PDF</h1>
-    <p>Buscador de Palavras-Chave em Arquivos</p>
+    <h1>🔍 <span id="typed-text"></span></h1>
+    <p class="typing">Buscador de Palavras-Chave em Arquivos</p>
   </header>
 
   <div class="container">
-    <img src="leitor-de-pdf.png" alt="Scanner PDF">
+    <img src="leitor-de-pdf.png" alt="Scanner PDF" />
+
     <h2>📌 O que o programa faz?</h2>
     <ol>
       <li>Pede ao usuário um caminho de pasta onde estão os arquivos <code>.txt</code>.</li>
       <li>Gera uma lista de arquivos <code>.txt</code> e <code>.pdf</code> presentes na pasta.</li>
       <li>Solicita ao usuário uma palavra-chave para busca.</li>
-      <li>Escaneia os arquivos <code>.txt</code> e conta quantas vezes a palavra aparece.</li>
+      <li>Escaneia os arquivos <code>.txt</code>, contando as ocorrências.</li>
       <li>Ordena os resultados por número de ocorrências.</li>
-      <li>Exibe os PDFs relacionados e a quantidade de ocorrências.</li>
-      <li>Apresenta um resumo final com total de arquivos encontrados.</li>
+      <li>Relaciona os PDFs aos textos e exibe os dados.</li>
+      <li>Apresenta um resumo final com os arquivos encontrados.</li>
     </ol>
 
     <h2>🎤 Slides da Apresentação</h2>
@@ -93,8 +130,25 @@
   </div>
 
   <footer>
-    © 2025 Ramom Souza - Projeto ScannerPDF
+    © 2025 Ramom Souza — Projeto ScannerPDF
   </footer>
+
+  <!-- Animação de digitação -->
+  <script>
+    const texto = "Scanner PDF";
+    const destino = document.getElementById("typed-text");
+    let i = 0;
+
+    function digitar() {
+      if (i < texto.length) {
+        destino.innerHTML += texto.charAt(i);
+        i++;
+        setTimeout(digitar, 100);
+      }
+    }
+
+    digitar();
+  </script>
 
 </body>
 </html>
