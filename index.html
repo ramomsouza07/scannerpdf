@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scanner PDF</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #e0e0e0;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px #00fff7;
+    }
+
+    header h1 {
+      color: #00fff7;
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00fff7;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    h2 {
+      color: #00fff7;
+      border-bottom: 2px solid #00fff7;
+      padding-bottom: 5px;
+    }
+
+    ol {
+      padding-left: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: #777;
+      margin-top: 50px;
+    }
+
+    a {
+      color: #00fff7;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🔍 Scanner PDF</h1>
+    <p>Buscador de Palavras-Chave em Arquivos</p>
+  </header>
+
+  <div class="container">
+    <img src="leitor-de-pdf.png" alt="Scanner PDF">
+    <h2>📌 O que o programa faz?</h2>
+    <ol>
+      <li>Pede ao usuário um caminho de pasta onde estão os arquivos <code>.txt</code>.</li>
+      <li>Gera uma lista de arquivos <code>.txt</code> e <code>.pdf</code> presentes na pasta.</li>
+      <li>Solicita ao usuário uma palavra-chave para busca.</li>
+      <li>Escaneia os arquivos <code>.txt</code> e conta quantas vezes a palavra aparece.</li>
+      <li>Ordena os resultados por número de ocorrências.</li>
+      <li>Exibe os PDFs relacionados e a quantidade de ocorrências.</li>
+      <li>Apresenta um resumo final com total de arquivos encontrados.</li>
+    </ol>
+
+    <h2>🎤 Slides da Apresentação</h2>
+    <p><a href="https://ramomsouza07.github.io/scannerpdf/slides.html" target="_blank">👉 Acesse aqui os slides em HTML</a></p>
+  </div>
+
+  <footer>
+    © 2025 Ramom Souza - Projeto ScannerPDF
+  </footer>
+
+</body>
+</html>
